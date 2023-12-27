@@ -3,10 +3,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function List() {
-    
+    //todo ----- get item -----
+    const getItem = () =>{
+        return JSON.parse(localStorage.getItem("groceries")) || [];
+    }
     //todo ----- declair state varriable -----
     const[item, setItem] = useState("");
-    const [list,setList] = useState([]);
+    const [list,setList] = useState(getItem());
 
     //todo ----- function to add the item -----
     function addItem(){
@@ -18,30 +21,19 @@ function List() {
         if (item === ""){
             toast.error("How I will add an empty field? 🤔",{
                 position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
+                autoClose: 1000,
             });
             return;
         }
         else{
             toast.success("Item has been added",{
                 position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
+                autoClose: 1000,
             });
             setList(newList); 
         }
         setItem(""); 
+        localStorage.setItem('groceries', JSON.stringify(newList));
     }
     //todo ----- function to remove the item -----
     const removeItem = (i) => {
@@ -49,15 +41,9 @@ function List() {
         toast.success("Item has been deleted",{
             position: "top-center",
             autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
         });
         setList(newList);
-        
+        localStorage.setItem('groceries', JSON.stringify(newList));
     };
     //todo ----- function to check the boxes -----
     const handleCheckboxChange= (i)=>{
@@ -68,12 +54,14 @@ function List() {
             return item;
         })
         setList(newList);
+        localStorage.setItem('groceries', JSON.stringify(newList));
     }
     //todo ----- increase count function -----
     const increaseCount = (idx) =>{
         const newList = [...list];
         newList[idx].count += 1;
         setList(newList);
+        localStorage.setItem('groceries', JSON.stringify(newList));
     }
     //todo ----- decrease count function -----
     const decreaseCount = (idx) =>{
@@ -81,18 +69,13 @@ function List() {
         if(newList[idx].count === 1){
             toast.info('This is a minimum number for this item! 😅', {
                 position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
+                autoClose: 1000,
                 });
             return;
         }
         newList[idx].count -= 1;
         setList(newList);
+        localStorage.setItem('groceries', JSON.stringify(newList));
     }
 
     //todo ----- render -----
