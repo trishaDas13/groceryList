@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function List() {
     
@@ -14,16 +16,48 @@ function List() {
             count: 1
         }];
         if (item === ""){
-            alert("How I will add an empty field? 🤔")
+            toast.error("How I will add an empty field? 🤔",{
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             return;
         }
-        setList(newList);    
+        else{
+            toast.success("Item has been added",{
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            setList(newList); 
+        }
         setItem(""); 
     }
     //todo ----- function to remove the item -----
     const removeItem = (i) => {
         const newList = list.filter((_, index) => index !== i);
+        toast.success("Item has been deleted",{
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
         setList(newList);
+        
     };
     //todo ----- function to check the boxes -----
     const handleCheckboxChange= (i)=>{
@@ -45,7 +79,16 @@ function List() {
     const decreaseCount = (idx) =>{
         const newList = [...list];
         if(newList[idx].count === 1){
-            alert('This is a minimum number for this item! 😅');
+            toast.info('This is a minimum number for this item! 😅', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
             return;
         }
         newList[idx].count -= 1;
@@ -111,6 +154,7 @@ function List() {
                     );
                 })}
             </div>
+            <ToastContainer />
         </div>
     );
 }
