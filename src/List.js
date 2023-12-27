@@ -102,6 +102,7 @@ function List() {
             <input 
                 type="text" 
                 placeholder="Grocery name"
+                value={item}
                 onChange = {(e) => setItem(e.target.value)}
             />
             <button className="addItem" onClick={addItem}>Add Item</button>
